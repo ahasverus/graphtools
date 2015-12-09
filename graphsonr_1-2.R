@@ -392,6 +392,7 @@ spp <- table(spp)
 # Camembert
 pie(spp)
 
+
 # Modifions les couleurs
 pie(spp, col = c("white", "gray", "black"))
 
@@ -493,6 +494,7 @@ lines(x, y, asp = 1, type = "l", lwd=1, col=4, axes=FALSE, xlab="", ylab="")
 # s'affiche a l’ecran. Regardons donc comment creer un graph vide?
 
 # Commencons par le commencement :
+par(mfrow=c(1,1))
 plot(var1, var2)
 
 # Ici, les axes sont determines automatiquement par R en fonction de la gamme
@@ -512,8 +514,8 @@ plot(var1, var2, type = "n")
 par(mfrow=c(2,3))
 plot(var1, var2)
 plot(var1, var2, type = "n", xaxt = "n")
-plot(var1, var2, type = "n", yaxt = "n")
 plot(var1, var2, type = "n", xaxt = "n", yaxt = "n")
+plot(var1, var2, type = "n", xaxt = "n", yaxt = "n", bty="n")
 # Supprimons tous les axes, même la boite:
 plot(var1, var2, type = "n", axes=FALSE)
 # Finalement, supprimons les etiquettes des axes, seul element restant.
@@ -530,7 +532,9 @@ plot0 <- function(x = c(-10,10), y = c(-10,10), type = "n", ...){
 
 
 # Ainsi, si nous souhaitons ouvrir un graph vide,
+par(mfrow=c(1,1))
 plot0()
+##
 plot0(var1, var2)
 
 
@@ -545,13 +549,11 @@ plot0(var1, var2)
 
 # Utilisons la longeur des petales
 
-var4 <- iris$Petal.Length
+var4 <- iris$Petal.Length[order1]
 
 # Tracons tout d'abord var2 en fonction de var1
-plot(var1, var2)
-
-# Et rajoutons var3 en fonction de var1 avec un couleur differente
-points(var1, var4, col = "red")
+plot0(var1, var2)
+points(var1, var2, col = "red")
 
 # Modifions la representation des points avec l'argument 'pch'.
 plot0(range(var1), range(var2,var4))
@@ -566,6 +568,8 @@ points(var1, var4, pch = 15, cex=1.6)
 # Mais, attention a l’etendue des axes du graphe a editer : les points a rajouter
 # doivent avoir le meme range de valeurs que ceux-ci. Sinon, il faudra modifier
 # l'entendue des axes dans la fonction plot avec 'xlim' et 'ylim'.
+
+# plot(1:25,1:25,pch=LETTERS[1:25])
 
 # Introduisons maintenant une commande interessante sous R : la fonction locator().
 # Celle-ci permet de recuperer les coordonnees d'un (ou plusieurs clics) sur un
@@ -596,18 +600,19 @@ points(x = c(4.5, 8), y = c(2, 4), type = "l")
 
 # Modifions le type de ligne.
 plot(var1, var2, pch = 15)
-points(x = c(4.5, 8), y = c(2, 4), type = "l", lty = 3)
+points(x = c(4.5, 8), y = c(2, 4), type = "l", lty = 3, lwd=2)
 
 # La fonction 'lines' s'utilisera de la meme maniere que 'points'.
 plot(var1, var2, pch = 15)
-lines(x = c(4.5, 8), y = c(2, 4),)
+lines(x = c(4.5, 8), y = c(2, 4), lty = 23, lwd=2)
 
 # La fonction 'abline' permettra de tracer des lignes horizontales, verticales et
 # des droites de regression a partir des coefficients estimes.
 plot(var1, var2, pch = 15, type = "b")
-abline(h = 3, v = 6, col = 4)
+abline(h = seq(2,4,0.5), v = 6, col = 4)
 abline(a=0, b=.5, col=3)
 ##
+plot(var1, var2, pch = 15, type = "b")
 abline(reg = lm(var2 ~ var1), col = "red", lwd=2)
 # Rajoutons la droite var2=var1.
 lines(x = c(1, 20), y = c(1, 20), lty = 3)
@@ -638,6 +643,7 @@ loc3 <- locator(4, type="o", col=3)
 # 'polygon'.
 plot(var1, var2, pch = 15)
 polygon(x = c(5,5, 7, 7, 8, 8), y = c(2, 3, 4, 4, 4, 3))
+##
 polygon(x = c(4.5, 6, 8), y = c(2, 4, 4), density = 20, angle = 45)
 
 # Nous retrouvons ici des arguments vu precedemment dans d'autres fonctions.
