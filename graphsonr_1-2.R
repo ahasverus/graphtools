@@ -242,7 +242,7 @@ data()
 
 # Utilisons la longeur des sepales que l'on ordonne:
 order1 <- order(iris$Sepal.Length)
-(var1 <- iris$Sepal.Length[order1] )
+(var1 <- iris$Sepal.Length[order1])
 # Remarque : Les parentheses permettent d'afficher le resultat dans la console
 # bien que nous ayons assigne le resultat a une variable.
 
@@ -312,7 +312,7 @@ boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"))
 # D'autres arguments sont modifiables. Nous vous laissons vous referer a l'aide
 # de cette fonction (?boxplot). Par ex. l'argument 'horizontal' permet de tracer
 # les boites a l'horizontale.
-boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"))
+boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"), horizontal=TRUE)
 
 
 
@@ -327,29 +327,28 @@ boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"))
 # Sous R, c'est la fonction barplot().
 
 # Creons tout d'abord un vecteur contenant six modalites.
-nom <- c("Vert", "Jaune", "Rouge", "Blanc", "Bleu", "Noir")
+nomcol <- c("Vert", "Jaune", "Rouge", "Blanc", "Bleu", "Noir")
 
 # Maintenant, nous allons tirer aleatoirement 1000 fois (avec remise) dans ce
 # vecteur.
-echn <- sample(x = nom, size = 1000, replace = T)
+echn <- sample(x = nomcol, size = 1000, replace = TRUE)
 
 # Comptons maintenant combien de fois se retrouve chaque modalite.
-(var4 <- table(echn))
+(var3 <- table(echn))
 
 # Representons cette variable sous forme d'un barplot.
 par(mfrow = c(2, 2))
-barplot(var4)
+barplot(var3)
 
 # De la meme maniere, nous pouvons representer les valeurs relatives.
 # Transformons cette variable en frequences.
-var5 <- var4/sum(var4)
-barplot(var5)
+barplot(var3/sum(var3))
 
 # Et a l'horizontale avec des couleurs differentes
-barplot(var4, horiz = T)
+barplot(var3, horiz = T)
 
 # Et avec des barres hachurees
-barplot(var4, density = c(20, 20, 20, 20, 40, 60), angle = c(0, 45, 90, 135), col=c(1,1,1,2))
+barplot(var3, density = c(20, 20, 20, 20, 40, 60), angle = c(0, 45, 90, 135), col=c(1,1,1,2))
 
 # Remarque : l'argument 'density' represente le nombre de hachures par pouce et
 # l'argument 'angle' donne leur orientation.
