@@ -822,27 +822,24 @@ mtext(side = 1, line = 3, text = "mtext - line = 3", at = 5)
 
 
 # Un premier exemple.
-plot(var1, var2, pch = 15, col = "blue")
+var3 <- iris[ , 'Petal.Length']
+
+plot(var1, var2, pch = 15, col = "blue", xlim = c(4, 8), ylim = c(1, 7))
 points(var1, var3, pch = 15, col = "red")
 legend("topleft", legend = c("var2", "var3"), pch = 15, col = c("blue", 'red'))
 
 # Un second en cliquant.
-plot(var1, var2, pch = 15, col = "blue")
+plot(var1, var2, pch = 15, col = "blue", xlim = c(4, 8), ylim = c(1, 7))
 points(var1, var3, pch = 15, col = "red")
 legend(locator(1), legend = c("var2", "var3"), pch = 15, col = c("blue", 'red'))
 
-# Avec des lignes au lieu de points et sans cadre
-plot(var1, var2, type = "l", col = "blue")
-points(var1, var3, type = "l", col = "red")
-legend(x = 15, y = 20, legend = c("var2", "var3"), lwd = 2, col = c("blue", 'red'), bty="n")
-
 # Et sans mais avec un fond gris.
-plot(var1, var2, pch = 15, col = "blue")
+plot(var1, var2, pch = 15, col = "blue", xlim = c(4, 8), ylim = c(1, 7))
 points(var1, var3, pch = 15, col = "red")
 legend("bottomright", c("var2", "var3"), pch = 15, col = c("blue", 'red'), bg = "gray", box.col="grey", cex=2)
 
 # Finalement, avec une legende ecrite horizontalement
-plot(var1, var2, pch = 15, col = "blue")
+plot(var1, var2, pch = 15, col = "blue", xlim = c(4, 8), ylim = c(1, 7))
 points(var1, var3, pch = 15, col = "red")
 legend("top", legend = c("var2", "var3"), pch = 15, col = c("blue", 'red'), horiz = T, bg = "white")
 
@@ -936,15 +933,19 @@ rasterImage(image, 150, 325, 250, 400, angle = 15, interpolate = FALSE)
 ## Pour donner toute sa pertinence a cette fonction, il est necessaire de presenter
 ## comment il est possible d'ouvrir une image avec R. Vous avez pour cela 2 packages
 ## "jpeg" et "png". Pour installer ces packages, il suffit d'entrer :
+
 install.packages(c("png","jpeg"), repos="http://cran.univ-lyon1.fr/")
+
 ## Pour les charger :
-require("png")
 require("jpeg")
+
 ## telechargeons une image.
 download.file("http://kevincazelles.fr/material/assets/photo1.jpg", "photo1.png")
+
 ## Il suffit d'utiliser la fonction 'readPNG' et d'utiliser l'argument 'native' avec la
 ## valeur 'TRUE' pour avoir un objet directement utilisable par 'rasterImage'.
 sloc <-readPNG("./photo1.png", native=TRUE)
+
 plot(0:8,0:8, type="n")
 for (i in 0:5){
     ptloc <- locator(1)
