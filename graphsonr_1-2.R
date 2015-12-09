@@ -498,48 +498,39 @@ lines(x, y, asp = 1, type = "l", lwd=1, col=4, axes=FALSE, xlab="", ylab="")
 # La philosophie des auteurs en termes de graphiques sous R est simple :
 # ajouter les elements un a un, en commencant par ouvrir une fenetre graphique
 # avec des dimensions (axes et marges) de leur choix mais sans que rien ne
-# s'affiche a l’ecran. Regardons donc comment creer un graph vide ?
+# s'affiche a l’ecran. Regardons donc comment creer un graph vide?
 
-# Commencons par le commencement
+# Commencons par le commencement :
 plot(var1, var2)
 
 # Ici, les axes sont determines automatiquement par R en fonction de la gamme
 # de valeurs de nos deux variables.
 # Modifions l’etendue des axes avec les arguments 'xlim' et 'ylim'.
-plot(var1, var2, xlim = c(-10, 30), ylim = c(-3, 4))
+plot(var1, var2, xlim = c(4, 8), ylim = c(1.5, 5))
 
 # Maintenant, nous ne voulons pas afficher les points. Nous pouvons utiliser
 # l'argument 'type' de la fonction plot
-plot(var1, var2, xlim = c(-10, 30), ylim = c(-3, 4), type = "n")
+plot(var1, var2, xlim = c(4, 8), ylim = c(1.5, 5), type = "n")
 
-# Simplifions l'ecriture vu qu'on fixe les limites des axes.
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n")
+# Utiliser xlim et ylim permet de choisisr l'etendu des axes a la main.
+# Si on se satisfait du choix par defaut de R, on peut simplement ecrire:
+plot(var1, var2, type = "n")
 
-# Supprimons les axes avec les arguments 'xaxt' et 'yaxt'
-par(mfrow=c(1,3))
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", xaxt = "n")
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", yaxt = "n")
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", xaxt = "n", yaxt = "n")
-
-# Les axes ont bel et bien ete supprimes, il reste cependant une
-# boite (box). Celle-ci delimite la zone de plot dans notre peripherique
-# graphique. Il ne sera possible d'ajouter des elements que dans cette zone
-# (avec quelques exceptions cependant)
-
-# Pour supprimer cette boite, utilisons l'argument 'bty'.
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", xaxt = "n", yaxt = "n", bty = "n")
-
-# L'utilisation des arguments 'xaxt', 'yaxt' et 'bty' pour etre replacee par
-# l'argument 'axes' qui aura le meme effet que precedemment s'il est FALSE.
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", axes = F)
-
-# Finalement, supprimons l'etiquette des axes, seul element restant.
-plot(0, xlim = c(-10, 30), ylim = c(-3, 4), type = "n", axes = F, xlab = "", ylab = "")
+# Supprimons les axes avec les arguments 'xaxt' et 'yaxt' et 'axes'
+par(mfrow=c(2,3))
+plot(var1, var2)
+plot(var1, var2, type = "n", xaxt = "n")
+plot(var1, var2, type = "n", yaxt = "n")
+plot(var1, var2, type = "n", xaxt = "n", yaxt = "n")
+# Supprimons tous les axes, même la boite:
+plot(var1, var2, type = "n", axes=FALSE)
+# Finalement, supprimons les etiquettes des axes, seul element restant.
+plot(var1, var2, type = "n", axes=FALSE, ann=FALSE)
 
 # Et voila ! Un graph vide avec des dimensions specifiees.
 # Notre ami Kevin a eu la tres bonne idee de creer une fonction pour cela.
 plot0 <- function(x = c(-10,10), y = c(-10,10), type = "n", ...){
-    plot(x, y, type=type, axes = FALSE, xlab ="", ylab = "", ...)
+    plot(x, y, type=type, axes=FALSE, ann=FALSE, ...)
 }
 # Remarque : avec "..." nous permettons a l'utilisateur d'ajouter des arguments de la fonctions plot.
 #            Dans notre exemple, les arguments non-explicite dans la liste des arguments de plot0
@@ -548,7 +539,7 @@ plot0 <- function(x = c(-10,10), y = c(-10,10), type = "n", ...){
 
 # Ainsi, si nous souhaitons ouvrir un graph vide,
 plot0()
-plot0(xlim = c(-10, 30), ylim = c(-3, 4))
+plot0(var1, var2)
 
 
 
