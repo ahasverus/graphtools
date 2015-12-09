@@ -364,21 +364,18 @@ barplot(var3, density = c(20, 20, 20, 20, 40, 60), angle = c(0, 45, 90, 135), co
 # de distribution que suivent les valeurs (loi normale, loi de Poisson, etc.).
 # Sous R, ce graph se fera a l'aide de la fonction "hist()".
 
-# Generons 1000 valeurs aleatoires selon une loi gaussienne (centree reduite).
-(var6 <- rnorm(n = 1000))
-
 # Tracons la distribution de ces valeurs
 par(mfrow = c(2, 2))
-hist(var6)
+hist(var1)
 
 # Modifions les classes avec
-hist(var6, breaks = seq(from = -4, to = 4,by = 0.25))
+hist(var1, breaks = seq(from = 4, to = 8,by = 0.25))
 
 # Ajoutons de la couleur
-hist(var6, col = "red", lty=2)
+hist(var1, col = "red", lty=2)
 
 # Et hachurons
-hist(var6, density = 20, angle = 45)
+hist(var1, density = 20, angle = 45)
 
 
 
@@ -387,18 +384,21 @@ hist(var6, density = 20, angle = 45)
 ###                                                                          ###
 
 # Une alternative au diagramme en bâtons est le diagramme sectoriel (camembert).
-# Regardons ce que ca donne avec les donnees precedentes (couleurs).
+# Regardons ce que ca donne avec le nombre d'individus par espece.
 
-# Diagramme sectoriel
-pie(var4)
+spp <- iris[ , 5]
+spp <- table(spp)
+
+# Camembert
+pie(spp)
 
 # Modifions les couleurs
-pie(var4, col = c("white", "blue", "yellow", "black", "red", "green"))
+pie(spp, col = c("white", "gray", "black"))
 
 # Taper '?pie' pour connaître l'ensemble des arguments de cette fonction.
 
 # En bonus, un bel arc-en-ciel
-ncol=250
+ncol <- 250
 pie(rep(1, ncol), col = rainbow(250), border = NA, labels = "")
 
 # En plus, un arc-en-ciel rotatif... (attention, pas si vous etes sous Rstudio...)
@@ -411,23 +411,6 @@ for (i in 1 : ncol){
 }
 ### end run
 
-# Enfin, sur le dernier diagramme, vous pouvez choisir 4 couleurs pour connaître
-# le code associe aux quatre couleurs.
-quartz()
-par(mfrow=c(2,2))
-for (i in (1:4)){
-    dev.set(dev.prev())
-    xy <- locator(1, type="o", pch=4)
-    dev.set(dev.next())
-    sz <- sqrt(xy$x^2+xy$y^2)
-    theta <- (xy$y<0)*(2*pi-acos(xy$x/sz)) + (xy$y>=0)*acos(xy$x/sz)
-    print(theta)
-    selcol <- floor(ncol*theta/(2*pi)+1)
-    par(mar=c(1,1,1,1))
-    image(matrix(1),col=rainbow(ncol)[selcol], axes=FALSE)
-    text(0,0,rainbow(ncol)[selcol], cex=2)
-}
-
 
 
 ###                                                                          ###
@@ -435,18 +418,22 @@ for (i in (1:4)){
 ###                                                                          ###
 
 B <- matrix(1:100, ncol = 10)
-image(B, col = rainbow(100), border = "")
+image(B, col = rainbow(100))
 
 ## Je reprends un exemple que vous pouvez trouver dans l'aide.
 ## 'volcano' est un jeu de donnees deja pret :
-volcano
-data()
+
 x <- 10*(1:nrow(volcano))
 y <- 10*(1:ncol(volcano))
+
 image(x, y, volcano, col = terrain.colors(100), axes = FALSE)
 contour(x, y, volcano, levels = seq(90, 200, by = 5), add = TRUE, col = "#441100")
+
 ##
+
 example(image)
+
+
 
 ###                                                                          ###
 ###                                           1.7. Fonction trigonometriques ###
@@ -455,14 +442,19 @@ example(image)
 ## Les fonctions trigo dans toute leur splendeur !
 ## Cette partie sert simplement a vous rappeler qu'un soupcon de maths (qui datent
 ## souvent de notre adolescence permet souvent de faire des figures pas pire).
+
 par(mfrow = c(1, 2))
+
 ##
+
 val <- seq(-2*pi, 2*pi, 0.001)
 coef <- 10*seq(2, -2, -0.01)
 x <- coef*cos(val)
 y <- coef*sin(val)
 plot(x, y, asp = 1, type = "l", axes=FALSE, col=6, xlab="", ylab="")
+
 ##
+
 val <- seq(-5*pi, 5*pi, 0.0001)
 coef <- 10^seq(0, -1.5, along.with = val)
 x <- coef*cos(val)
