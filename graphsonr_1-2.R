@@ -543,24 +543,25 @@ plot0(var1, var2)
 # d'utiliser la fonction 'points'. Celle-ci possede un tres grand nombre
 # d'arguments en commun avec la fonction 'plot'.
 
-# Creons trois nouvelles variables quantitatives
-var1 <- seq(1, 20)
-var2 <- sample(var1, 20, replace = F)
-var3 <- sample(var1, 20, replace = F)
+# Utilisons la longeur des petales
+
+var4 <- iris$Petal.Length
 
 # Tracons tout d'abord var2 en fonction de var1
 plot(var1, var2)
 
 # Et rajoutons var3 en fonction de var1 avec un couleur differente
-points(var1, var3, col = "red")
+points(var1, var4, col = "red")
 
 # Modifions la representation des points avec l'argument 'pch'.
-plot(var1, var2, pch = 19)
-points(var1, var3, pch = 15)
+plot0(range(var1), range(var2,var4))
+points(var1, var2, pch = 19)
+points(var1, var4, pch = 15)
 
 # Modifions la taille des symboles avec l'argument 'cex'.
-plot(var1, var2, cex = 1) # par defaut
-points(var1, var3, cex = 2)
+plot0(range(var1), range(var2,var4))
+points(var1, var2, pch = 19, cex=1)
+points(var1, var4, pch = 15, cex=1.6)
 
 # Mais, attention a l’etendue des axes du graphe a editer : les points a rajouter
 # doivent avoir le meme range de valeurs que ceux-ci. Sinon, il faudra modifier
@@ -591,35 +592,32 @@ points(locator(4), pch = 19, col = "green", cex=2.5)
 # extremes, nous pouvons utiliser la fonction 'point'.
 
 plot(var1, var2, pch = 15)
-points(x = c(1, 20), y = c(1, 20), type = "l")
+points(x = c(4.5, 8), y = c(2, 4), type = "l")
 
 # Modifions le type de ligne.
 plot(var1, var2, pch = 15)
-points(x = c(1, 20), y = c(1, 20), type = "l", lty = 3)
+points(x = c(4.5, 8), y = c(2, 4), type = "l", lty = 3)
 
 # La fonction 'lines' s'utilisera de la meme maniere que 'points'.
 plot(var1, var2, pch = 15)
-lines(x = c(1, 20), y = c(1, 20))
+lines(x = c(4.5, 8), y = c(2, 4),)
 
 # La fonction 'abline' permettra de tracer des lignes horizontales, verticales et
 # des droites de regression a partir des coefficients estimes.
 plot(var1, var2, pch = 15, type = "b")
-abline(h = 10, col = "blue")
-abline(v = 10, col = "blue")
-
-abline(a=20, b=-1, col = "green", lwd=2)
+abline(h = 3, v = 6, col = 4)
+abline(a=0, b=.5, col=3)
+##
 abline(reg = lm(var2 ~ var1), col = "red", lwd=2)
-
 # Rajoutons la droite var2=var1.
 lines(x = c(1, 20), y = c(1, 20), lty = 3)
 
 # Enfin, la fonction segment permet de relier deux points entre eux.
 plot(var1, var2, pch = 15)
 segments(x0 = var1[1], y0 = var2[1], x1 = var1[2], y1 = var2[2])
-
 # Creons deux autres segments
-segments(var1[1], var2[1], var1[20], var2[20])
-segments(var1[20], var2[20], var1[2], var2[2])
+segments(var1[1], var2[1], var1[100], var2[100])
+segments(var1[100], var2[100], var1[2], var2[2])
 
 # Tracons une droite en cliquant
 locator(n = 2, type = "l", col = "blue", lty = 3)
@@ -639,9 +637,8 @@ loc3 <- locator(4, type="o", col=3)
 # Inserer une forme polygonale sur un graphe se fera a l'aide de la fonction
 # 'polygon'.
 plot(var1, var2, pch = 15)
-polygon(x = c(10, 5, 5, 10, 15, 15), y = c(5, 10, 15, 20, 15, 10))
-polygon(x = c(10, 5, 15), y = c(5, 15, 15), density = 20, angle = 45)
-polygon(x = c(5, 10, 15), y = c(10, 20, 10), density = 20, angle = 135)
+polygon(x = c(5,5, 7, 7, 8, 8), y = c(2, 3, 4, 4, 4, 3))
+polygon(x = c(4.5, 6, 8), y = c(2, 4, 4), density = 20, angle = 45)
 
 # Nous retrouvons ici des arguments vu precedemment dans d'autres fonctions.
 # Voyons un exemple en couleurs.
@@ -666,9 +663,9 @@ polygon(x = seqX, y = GaussB, border = 0, col = "#0000FF88")
 # Voyons maintenant un cas particulier de polygone : le rectangle. Celui-ci
 # s'obtient avec la fonction 'rect'.
 plot(var1, var2, pch = 15)
-rect(xleft = 5, ybottom = 5, xright = 15, ytop = 15, col = "gray")
+rect(xleft = 4.5, ybottom = 2.5, xright = 7.5, ytop = 4, col = "gray")
 points(var1, var2, pch = 15)
-rect(xleft = 5, ybottom = 5, xright = 15, ytop = 15, density = 20, angle = 45)
+rect(xleft = 4.8, ybottom = 2.7, xright = 7.2, ytop = 3.8, density = 20, angle = 45)
 
 # Et en incluant la fonction 'locator', nous pouvons dessiner un polygon a la main.
 polygon(locator(5), col = "#0000FF88", border = 0)
@@ -702,7 +699,7 @@ arrows(x0 = 0, y0 = 2, x1 = 2, y1 = 0, length = 0.75, angle = 10, code = 3, lwd=
 # Commencons par un cercle. Avec cette fonction, nous donnons les coordonnees des centres
 # ainsi qu'un vecteur de rayons associes a ces centres :
 plot(var1,var2)
-symbols(x=c(5,4), y=c(15,12), circles=c(1,2))
+symbols(x=c(5,4), y=c(4,6), circles=c(1,2))
 # Remarque : vous devez specifier un type de symbole.
 # Nous avons bien obtenu nos cercles. Cependant, nous avons supprime la figure precedente.
 # Nous pouvons empecher cela en utilisant le parametre 'add'. Nus ajoutons egalement
