@@ -931,11 +931,11 @@ install.packages(c("png","jpeg"), repos="http://cran.univ-lyon1.fr/")
 require("jpeg")
 
 ## telechargeons une image.
-download.file("http://kevincazelles.fr/material/assets/photo1.jpg", "photo1.png")
+download.file("http://kevincazelles.fr/material/assets/photo1.jpg", "photo1.jpg")
 
 ## Il suffit d'utiliser la fonction 'readPNG' et d'utiliser l'argument 'native' avec la
 ## valeur 'TRUE' pour avoir un objet directement utilisable par 'rasterImage'.
-sloc <-readPNG("./photo1.png", native=TRUE)
+sloc <-readJPEG("./photo1.jpg", native=TRUE)
 
 plot(0:8,0:8, type="n")
 for (i in 0:5){
