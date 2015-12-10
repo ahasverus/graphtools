@@ -11,6 +11,8 @@
 
 ################################################################################
 #####
+##### ---- Partie 1 ----
+#####
 ##### AVANT-PROPOS
 #####
 ##### INTRODUCTION
@@ -44,6 +46,7 @@
 #####   2.10. Ajout d'axes et de box
 #####   2.11. Ajout d'une image
 #####
+##### ---- Partie 2 ----
 #####
 ##### 3. PARAMETRES GRAPHIQUES
 #####
@@ -51,9 +54,8 @@
 #####
 ##### 5. PARTITIONNEMENT D'UNE FENETRE
 #####
-##### EXERCICES
-#####
 ################################################################################
+
 
 
 
@@ -87,7 +89,7 @@ browseURL("https://cran.r-project.org/web/views/Graphics.html")
 # "fait abstraction des caracteristiques techniques du materiel utilise"
 # - Wikipedia - repose sur la connaissance d'un certain nombre de fonctions.
 # C'est precisemment ces dernieres que nous allons utiliser, chacune disposant
-# d'une aide accessible en utilisant le symbole "?". Par ex:
+# d'une aide accessible en utilisant le symbole "?". Par exemple:
 ?plot
 ?plot.default
 
@@ -95,7 +97,7 @@ browseURL("https://cran.r-project.org/web/views/Graphics.html")
 # Au lieu de les recopier vous pouvez demander a les executer avec la fonction 'example'
 example(plot)
 
-# Il se peut aussi que vous ayez des vignettes c'est a dire des exemples plus detailles
+# Il se peut aussi que vous ayez des vignettes c.-a.d. des exemples plus detailles
 # souvent en pdf
 vignette(package="graphics")
 vignette(package="grid")
@@ -105,29 +107,28 @@ vignette("moveline")
 demo(Hershey)
 
 # Une recherche par mot clef est possible avec le "??". Attention, le temps de
-# recherche peut-etre plus ou moins long...
+# recherche peut-etre long...
 ??student
 
-# Aussi les packages possedent tous une liste exhaustive des methodes et fonctions qu'ils
-# developpent.
+# De pkus, les packages possedent tous une liste exhaustive des methodes et
+# fonctions qu'ils developpent.
 library(help = "base")
+# "base" est l'un des ensembles de methodes et fonctions fondamentales de R.
 
-# NB : "base" est l'un des ensembles de methodes et fonctions fondamentales de R.
 # Pour la formation qui suit :
 library(help = "graphics")
 
 # est plus judicieux.
-# NB : l'ensemble des packages peut-etre visualise avec :
+# Note que l'ensemble des packages peut-etre visualise avec :
 search()
 
-# On peut voir les fonctions sous forme de liste avec la commande suivante :
+# On peut voir l'ensemble des fonctions sous forme de liste :
 ls(envir = as.environment("package:graphics"))
-
-# Vous pourrez ainsi rapidement identifier les fonctions traitees en-dessous ou non.
+# Vous pourrez ainsi rapidement identifier les fonctions traitees dans la suite.
 
 # La fonction "apropos" vous permet de retrouver des fonctions par "pattern". Si
-# vous vous rappeler le nom d'une fonction mais pas son orthographe exact, "apropos"
-# vous facilitera la recherche.
+# vous vous rappelez le nom d'une fonction mais pas de son orthographe exact,
+# "apropos" vous facilitera la recherche.
 apropos("read")
 
 # Remarque : on peut utiliser des expressions regulieres pour une recherche plus
@@ -142,8 +143,9 @@ apropos("file$")
 # Et celles qui commencent par 'read' et se terminent par 'file' :
 apropos("^read+.+file$")
 
-# Et si vous ne trouvez toujours pas, Google est votre meilleur ami :
-browseURL("https://www.google.ca/#q=import%20data%20R")
+# Et si vous ne trouvez toujours pas, cherchez sur internet, de nombreuses
+# ressources disponibles
+
 
 
 
@@ -166,10 +168,10 @@ browseURL("https://www.google.ca/#q=import%20data%20R")
 # coût : on peut tout faire, certes, mais avec un certain nombre de lignes,
 # parfois important, nous le concedons volontiers...
 
-# Mais, selon nous, il est important de commencer par le commencement, et de
-# maîtriser les differents elements qui composent un graphique. Une fois cette
-# maîtrise acquise, vous pourrez laisser libre cours a votre imagination et a
-# votre inspiration pour ameliorer le rendu visuel de vos graphiques.
+# Mais, selon nous, il est important de commencer par maîtriser les differents
+# elements qui composent un graphique. Une fois cette maîtrise acquise, vous
+# pourrez laisser libre cours a votre imagination et a votre inspiration pour
+# ameliorer le rendu visuel de vos graphiques.
 
 # Regardons rapidement les fonctions disponibles dans ce package, dont la plupart
 # seront abordees ici.
@@ -183,7 +185,7 @@ ls(envir=as.environment("package:graphics"))
 ###                                               [.] Mon 'Hello world' plot ###
 ###                                                                          ###
 
-# Puisqu'un dessin vaut mieux qu'un long discours, realisons notre premier graphique :
+# Puisqu'un dessin vaut mieux qu'un long discours, voici notre premier graphique :
 plot(1)
 
 # Que s'est-il passe ?
@@ -194,20 +196,22 @@ plot(1)
 
 # Nous developperons plus loin la notion de peripherique graphique. Mais, glissons
 # rapidement quelques mots sur les parametres graphiques. Leurs valeurs par defaut
-# sont stockees dans la liste 'par', accessible comme suit :
+# sont stockees dans une liste 'par', accessibles et modifiables avec la fonction
+# suivante :
 par()
 # Remarque : si aucune fenetre n'est ouverte, une fenetre vide est ouverte.
 
 # Ainsi, en recuperant ces valeurs, R a automatiquement determine les axes, la
-# police, les couleurs, les marges, le symbole, etc. Toutes ces informations sont
-# modifiables, et heureusement, car le rendu laisse un peu a desirer... Nous
-# verrons plus loin comment modifier certains de ces parametres.
+# police, les couleurs, les marges, les symboles, etc. Toutes ces informations
+# sont modifiables, et heureusement, car le rendu par default laisse un peu a
+# desirer... Nous verrons plus loin comment modifier certains de ces parametres.
 
-# Pour effecer le graphique courant en ligne de commande:
+# Pour effacer le graphique courant en ligne de commande :
 dev.off()
 
-# Pour effecer tous les graphiques:
+# Pour effacer tous les graphiques :
 graphics.off()
+
 
 
 
@@ -219,11 +223,11 @@ graphics.off()
 #####
 
 # Regardons tout d'abord quelques fonctions permettant de realiser des graphiques
-# souvent utilises en science. Dans R, on realise de tels figures avec des 'High-level
-# plotting functions', c.-a.d. que leur appel (execution) ouvrira automatiquement
-# une nouvelle fenetre graphique. On les opposera aux 'Low-level functions' qui
-# elles, permettront d'ajouter des elements a un graphique pre-existant. C'est
-# l'objet du chapitre suivant.
+# souvent utilises en science. Dans R, on realise de tels figures avec des
+# 'High-level plotting functions', c.-a.d. que leur appel (execution) ouvrira
+# automatiquement une nouvelle fenetre graphique. On les opposera aux
+# 'Low-level functions' qui elles, permettront d'ajouter des elements a un
+# graphique pre-existant. C'est l'objet du chapitre suivant.
 
 
 
@@ -233,11 +237,10 @@ graphics.off()
 
 # Il s'agit d'un graphe classique permettant de representer deux variables
 # continues l'une en fonction de l'autre dans un nuage de points.
-# Nous allons reutiliser la fonction plot.
-# Pour utiliser les fonctions nous utiliserons un des jeux de donnees installes
-# par defaut avec R
+# Dans la suite, pour realiser des graphiques, nous utiliserons un des jeux de
+# donnees installes par defaut avec R dont on peut regarder la liste, ainsi :
 data()
-# Nous choississons le jeu de donnees historique "iris"
+# Nous choississons le jeu de donnees historique "iris" :
 ?iris
 
 # Utilisons la longeur des sepales que l'on ordonne:
@@ -284,35 +287,35 @@ plot(var1, var2, type = "n", main = "Type = n")
 ###                                                   1.2. Boite a moustache ###
 ###                                                                          ###
 
-# La boite a moustaches est une representation graphique tres utile en
+# La boite a moustache est une representation graphique tres utile en
 # statistiques, puisqu'elle permet de resumer les caracteristiques de position
-# (mediane, 1er et 3eme quartiles, minimum et maximum) d'une variable
-# quantitative.
+# (mediane, 1er et 3eme quartiles, 5eme quartile et 95eme quartile) d'une
+# variable quantitative.
 # Sous R, la fonction utilisee sera "boxplot".
 par(mfrow = c(2, 3))
 boxplot(var1)
 boxplot(var2)
-
 # Nous pouvons aussi comparer la distribution de deux (ou plusieurs) variables
 # en meme temps.
 boxplot(var1, var2, col=c(0,"grey75"))
-
 # Remarque : l'argument 'col' permet d'ajouter de la couleur a chaque boxplot.
-# Nous y reviendrons plus tard, mais cet argument s'applique a plusieurs
-# fonctions, comme plot().
-
+# Nous y reviendrons plus tard.
 # Cette fonction s'applique sur des vecteurs, mais aussi sur des dataframes.
-boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"))
+boxplot(iris[,-5], col=c(0,"grey75","grey50","grey25"))
 
 # Remarque : il y a une correspondance pratique pour gagner du temps :
-# 0=blanc; 1=noir ; 2=rouge ; 3=vert ; 4=bleu ; 5=bleu clair ; 6=violet ; 7=jaune ; 8=gris.
-# regardez aussi 'colors()'; pour plus de détail voir plus bas.
+# 0=blanc; 1=noir ; 2=rouge ; 3=vert ; 4=bleu ; 5=bleu clair ; 6=violet ; 7=jaune
+# ; 8=gris; regardez aussi 'colors()', vous y trouverez aussi des nuances de
+# grey, depuis "grey5" (ou "gray5") jusqu'à "grey95" (ou "gray95")
+# pour plus de détails voir plus bas.
 
 # Rien ne change, si ce n'est le nom de chaque boite.
-# D'autres arguments sont modifiables. Nous vous laissons vous referer a l'aide
+# D'autres arguments sont modifiables. Nous vous laissons regarder l'aide
 # de cette fonction (?boxplot). Par ex. l'argument 'horizontal' permet de tracer
 # les boites a l'horizontale.
-boxplot(iris[,-5], col=c(0,"grey25","grey50","grey75"), horizontal=TRUE)
+boxplot(iris[,-5], col=c(0,"grey75","grey50","grey25"), horizontal=TRUE)
+# Et pour supprimer les "outlier"
+boxplot(iris[,-5], col=c(0,"grey75","grey50","grey25"), horizontal=TRUE, outline=FALSE)
 
 
 
@@ -344,10 +347,10 @@ barplot(var3)
 # Transformons cette variable en frequences.
 barplot(var3/sum(var3))
 
-# Et a l'horizontale avec des couleurs differentes
-barplot(var3, horiz = T)
+# Et a l'horizontal avec des couleurs differentes
+barplot(var3, horiz = TRUE)
 
-# Et avec des barres hachurees
+# Et avec des barres hachurees:
 barplot(var3, density = c(20, 20, 20, 20, 40, 60), angle = c(0, 45, 90, 135), col=c(1,1,1,2))
 
 # Remarque : l'argument 'density' represente le nombre de hachures par pouce et
@@ -368,11 +371,11 @@ barplot(var3, density = c(20, 20, 20, 20, 40, 60), angle = c(0, 45, 90, 135), co
 par(mfrow = c(2, 2))
 hist(var1)
 
-# Modifions les classes avec
+# Modifions les classes avec l'argument 'breaks' :
 hist(var1, breaks = seq(from = 4, to = 8,by = 0.25))
 
-# Ajoutons de la couleur
-hist(var1, col = "red", lty=2)
+# Ajoutons de la couleur et le type de ligne ('lty') et leur largeur ('lwd')
+hist(var1, col = "grey40", lty=2)
 
 # Et hachurons
 hist(var1, density = 20, angle = 45)
@@ -385,6 +388,7 @@ hist(var1, density = 20, angle = 45)
 
 # Une alternative au diagramme en bâtons est le diagramme sectoriel (camembert).
 # Regardons ce que ca donne avec le nombre d'individus par espece.
+# Ce type de graphique n'est pas conseillee si vous avez beaucoup de categories.
 
 spp <- iris[ , 5]
 spp <- table(spp)
@@ -402,7 +406,7 @@ pie(spp, col = c("white", "gray", "black"))
 ncol <- 250
 pie(rep(1, ncol), col = rainbow(250), border = NA, labels = "")
 
-# En plus, un arc-en-ciel rotatif... (attention, pas si vous etes sous Rstudio...)
+## En plus, un arc-en-ciel rotatif... (attention, ne le fait pas si vous etes sous Rstudio...)
 ### run
 for (i in 1 : ncol){
 	if (i > 1){
@@ -418,50 +422,43 @@ for (i in 1 : ncol){
 ###                                                    1.6. Fonction image() ###
 ###                                                                          ###
 
+## Elle permet de tracer des image de type 'raster'.
+## Par exemple, une matrice simple :
 B <- matrix(1:100, ncol = 10)
 image(B, col = rainbow(100))
 
-## Je reprends un exemple que vous pouvez trouver dans l'aide.
+## Nous reprennons ici un exemple que vous pouvez trouver dans l'aide.
 ## 'volcano' est un jeu de donnees deja pret :
-
 x <- 10*(1:nrow(volcano))
 y <- 10*(1:ncol(volcano))
-
 image(x, y, volcano, col = terrain.colors(100), axes = FALSE)
 contour(x, y, volcano, levels = seq(90, 200, by = 5), add = TRUE, col = "#441100")
 
-##
-
+## Vous pouvez utiliser la fonction 'example()'
 example(image)
 
 
 
 ###                                                                          ###
-###                                           1.7. Fonction trigonometriques ###
+###                                          1.7. Fonctions trigonometriques ###
 ###                                                                          ###
 
 ## Les fonctions trigo dans toute leur splendeur !
-## Cette partie sert simplement a vous rappeler qu'un soupcon de maths (qui datent
-## souvent de notre adolescence permet souvent de faire des figures pas pire).
+## Cette partie sert simplement a vous rappeler qu'un soupcon de maths (qui sont
+## des souvenirs parfois lointain mais bien utils).
 
 par(mfrow = c(1, 2))
-
 ##
-
 val <- seq(-2*pi, 2*pi, 0.001)
-coef <- 10*seq(2, -2, -0.01)
-x <- coef*cos(val)
-y <- coef*sin(val)
-plot(x, y, asp = 1, type = "l", axes=FALSE, col=6, xlab="", ylab="")
-
+cos(val)
+plot(cos(val), sin(val), asp = 1, type = "l", axes=FALSE, col=6, xlab="", ylab="")
 ##
-
 val <- seq(-5*pi, 5*pi, 0.0001)
 coef <- 10^seq(0, -1.5, along.with = val)
 x <- coef*cos(val)
 y <- coef*sin(val)
-plot(x, y, asp = 1, type = "l", lwd=5, col=8, axes=FALSE, xlab="", ylab="")
-lines(x, y, asp = 1, type = "l", lwd=1, col=4, axes=FALSE, xlab="", ylab="")
+plot(x, y, asp = 1, type = "l", lwd=6, col=8, axes=FALSE, xlab="", ylab="")
+lines(x, y, asp = 1, type = "l", lwd=2, col=4, axes=FALSE, xlab="", ylab="")
 
 
 
@@ -472,15 +469,14 @@ lines(x, y, asp = 1, type = "l", lwd=1, col=4, axes=FALSE, xlab="", ylab="")
 ##### 2. EDITION D'UN GRAPHE
 #####
 
-# Regardons maintenant comment editer un graphique. En d'autres termes, nous allons
-# ajouter des elements a un graphique existant, elements qui peuvent des points, des lignes,
-# des symboles, du texte ou encore une legende. L'appel aux fonctions precedentes
-# avait pour consequence d'ouvrir un nouveau peripherique graphique. Ici, nous
-# allons utiliser des 'Low-level plotting functions', qui n'ouvriront pas de
-# nouveau peripherique graphique mais utiliseront celui qui est deja ouvert
-# (actif) pour l’editer.
-# Condition requise :  un peripherique graphique doit etre prealablement ouvert
-# avec d'utiliser de telles fonctions.
+# Regardons maintenant comment editer un graphique. En d'autres termes, nous
+# allons ajouter des elements a un graphique existant, elements qui peuvent etre
+# des points, des lignes, des symboles, du texte ou encore une legende. L'appel
+# aux fonctions precedentes engendrait l'ouverture un nouveau peripherique
+# graphique. Ici, nous allons utiliser des 'Low-level plotting functions', qui
+# n'ouvriront pas de nouveau peripherique graphique mais utiliseront celui deja
+# ouvert (actif). Par consequence, un peripherique graphique doit etre prealablement
+# etre ouvert avant d'utiliser de telles fonctions.
 
 
 
@@ -491,7 +487,7 @@ lines(x, y, asp = 1, type = "l", lwd=1, col=4, axes=FALSE, xlab="", ylab="")
 # La philosophie des auteurs en termes de graphiques sous R est simple :
 # ajouter les elements un a un, en commencant par ouvrir une fenetre graphique
 # avec des dimensions (axes et marges) de leur choix mais sans que rien ne
-# s'affiche a l’ecran. Regardons donc comment creer un graph vide?
+# s'affiche a l’ecran. Regardons donc comment creer un graphique vide?
 
 # Commencons par le commencement :
 par(mfrow=c(1,1))
@@ -503,7 +499,8 @@ plot(var1, var2)
 plot(var1, var2, xlim = c(4, 8), ylim = c(1.5, 5))
 
 # Maintenant, nous ne voulons pas afficher les points. Nous pouvons utiliser
-# l'argument 'type' de la fonction plot
+# l'argument 'type' de la fonction plot et sa valeur "n" qui n'affiche pas les
+# poins:
 plot(var1, var2, xlim = c(4, 8), ylim = c(1.5, 5), type = "n")
 
 # Utiliser xlim et ylim permet de choisisr l'etendu des axes a la main.
@@ -521,8 +518,8 @@ plot(var1, var2, type = "n", axes=FALSE)
 # Finalement, supprimons les etiquettes des axes, seul element restant.
 plot(var1, var2, type = "n", axes=FALSE, ann=FALSE)
 
-# Et voila ! Un graph vide avec des dimensions specifiees.
-# Notre ami Kevin a eu la tres bonne idee de creer une fonction pour cela.
+# Il est plus efficace d'automatiser ce plot vide dans une fonction.
+# Voir aussi la fonction 'emptyplot()' du package 'shape'.
 plot0 <- function(x = c(-10,10), y = c(-10,10), type = "n", ...){
     plot(x, y, type=type, axes=FALSE, ann=FALSE, ...)
 }
@@ -530,11 +527,8 @@ plot0 <- function(x = c(-10,10), y = c(-10,10), type = "n", ...){
 #            Dans notre exemple, les arguments non-explicite dans la liste des arguments de plot0
 #            peuvent etre ajoutes.
 
-
 # Ainsi, si nous souhaitons ouvrir un graph vide,
 par(mfrow=c(1,1))
-plot0()
-##
 plot0(var1, var2)
 
 
@@ -546,43 +540,52 @@ plot0(var1, var2)
 # Pour inserer des points sur un graphe, rien de plus simple : il suffit
 # d'utiliser la fonction 'points'. Celle-ci possede un tres grand nombre
 # d'arguments en commun avec la fonction 'plot'.
-
-# Utilisons la longeur des petales
-
+# A ce point, nous rajoutons une nouvelle variable, la longeur des petales:
 var4 <- iris$Petal.Length[order1]
 
-# Tracons tout d'abord var2 en fonction de var1
+# var2 en fonction de var1 de couleur rouge
+par(mfrow=c(1,1))
 plot0(var1, var2)
 points(var1, var2, col = "red")
 
-# Modifions la representation des points avec l'argument 'pch'.
+# Modifions la representation des points avec l'argument 'pch'. Deux symboles
+# differents pour var2 et var4. Pour obtenir la bonen etendue des axes, une
+# astuce: utiliser la focntion range qui retourne le minimum et le maximum
+# d'un ou un ensemble vecteur:
 plot0(range(var1), range(var2,var4))
 points(var1, var2, pch = 19)
 points(var1, var4, pch = 15)
 
+# Pour connaître l'ensmeble des symboles, une astuce
+par(mfrow=c(2,1))
+plot0(1:20, 1:20)
+points(1:20, 1:20, pch = 1:25)
+# Les lettres peuvent aussi etre utilisees
+plot0(1:26, 1:26)
+points(1:26, 1:26, pch = LETTERS[1:26])
+
 # Modifions la taille des symboles avec l'argument 'cex'.
+par(mfrow=c(1,1))
 plot0(range(var1), range(var2,var4))
 points(var1, var2, pch = 19, cex=1)
 points(var1, var4, pch = 15, cex=1.6)
 
-# Mais, attention a l’etendue des axes du graphe a editer : les points a rajouter
-# doivent avoir le meme range de valeurs que ceux-ci. Sinon, il faudra modifier
-# l'entendue des axes dans la fonction plot avec 'xlim' et 'ylim'.
+# On peut utiliser l'argument cex pour faire varier la taille des symboles selon
+# une autre variable. Il est possible de faire cela avec la couleur aussi.
+plot0(range(var1), range(var2))
+points(var1, var2, pch = 19, cex=0.4*var4, col=iris$Species[order1])
 
-# plot(1:25,1:25,pch=LETTERS[1:25])
 
 # Introduisons maintenant une commande interessante sous R : la fonction locator().
 # Celle-ci permet de recuperer les coordonnees d'un (ou plusieurs clics) sur un
 # graph.
-
 plot(var1, var2, pch = 15, col = "red")
 (loc1 <- locator(n = 2))
 
-# Mais, cette fonction permet egalement de rajouter simultanement ces points sur
-# le graphe.
+# Cette fonction permet egalement de rajouter les points sur le grpahe au clic :
 loc2 <- locator(n = 3, type = "p", pch=15, col="blue")
 
-# En association avec la fonction 'points'.
+# En association avec la fonction 'points' :
 points(locator(4), pch = 19, col = "green", cex=2.5)
 
 
@@ -594,28 +597,21 @@ points(locator(4), pch = 19, col = "green", cex=2.5)
 # Plusieurs fonctions permettent de tracer une ligne sous R. Tout depend de
 # l'information de depart. Si on dispose des coordonnees des deux points
 # extremes, nous pouvons utiliser la fonction 'point'.
-
-plot(var1, var2, pch = 15)
-points(x = c(4.5, 8), y = c(2, 4), type = "l")
-
-# Modifions le type de ligne.
 plot(var1, var2, pch = 15)
 points(x = c(4.5, 8), y = c(2, 4), type = "l", lty = 3, lwd=2)
 
 # La fonction 'lines' s'utilisera de la meme maniere que 'points'.
 plot(var1, var2, pch = 15)
-lines(x = c(4.5, 8), y = c(2, 4), lty = 23, lwd=2)
+lines(x = c(4.5, 8), y = c(2, 4), lty = 3, lwd=2)
 
 # La fonction 'abline' permettra de tracer des lignes horizontales, verticales et
-# des droites de regression a partir des coefficients estimes.
+# des droites de regression a partir des coefficients estimes :
 plot(var1, var2, pch = 15, type = "b")
 abline(h = seq(2,4,0.5), v = 6, col = 4)
 abline(a=0, b=.5, col=3)
 ##
 plot(var1, var2, pch = 15, type = "b")
 abline(reg = lm(var2 ~ var1), col = "red", lwd=2)
-# Rajoutons la droite var2=var1.
-lines(x = c(1, 20), y = c(1, 20), lty = 3)
 
 # Enfin, la fonction segment permet de relier deux points entre eux.
 plot(var1, var2, pch = 15)
@@ -666,8 +662,8 @@ polygon(x = seqX, y = GaussB, border = 0, col = "#0000FF88")
 # Rappel : hexadecimal signifie que la notation d'une quantite se fait a l'aide de
 # 16 symboles (en general les chiffres de 0 a 9 et les lettres de A a F),
 
-# Voyons maintenant un cas particulier de polygone : le rectangle. Celui-ci
-# s'obtient avec la fonction 'rect'.
+# Voyons maintenant un cas particulier: le rectangle. Celui-ci s'obtient avec
+# la fonction 'rect()'.
 plot(var1, var2, pch = 15)
 rect(xleft = 4.5, ybottom = 2.5, xright = 7.5, ytop = 4, col = "gray")
 points(var1, var2, pch = 15)
@@ -691,26 +687,28 @@ polygon(locator(5, type="l", col=4), col = "#0000FF88", border = 0)
 plot(c(0, 2), c(0, 2), type = "n")
 arrows(x0 = 0, y0 = 0, x1 = 0, y1 = 2, length = 0.25, angle = 30, code = 1)
 arrows(x0 = 2, y0 = 0, x1 = 2, y1 = 2, length = 0.25, angle = 30, code = 2)
-arrows(x0 = 0, y0 = 2, x1 = 2, y1 = 0, length = 0.75, angle = 10, code = 3, lwd=2, col=2)
-
+arrows(x0 = 0.1, y0 = 1.9, x1 = 1.9, y1 = 0.1, length = 0.4, angle = 90, code = 3, lwd=2, col=2)
+# En utilisant un angle de 90, on peut utiliser les fleche pour faire rapidement
+# des barres d'erreur.
 
 
 ###                                                                          ###
 ###                                                   2.6. Ajout de symboles ###
 ###                                                                          ###
 
-## Cette fonction permet simplement de rajouter des cercles, des carrees,
-## des rectangles, des etoiles, des thermometres et des boxplots.
+## Cette fonction permet de rajouter des cercles, des carrees, des rectangles,
+## des etoiles, des thermometres et des boxplots.
 
 # Commencons par un cercle. Avec cette fonction, nous donnons les coordonnees des centres
 # ainsi qu'un vecteur de rayons associes a ces centres :
 plot(var1,var2)
-symbols(x=c(5,4), y=c(4,6), circles=c(1,2))
+symbols(x=c(5,7), y=c(4,3), circles=c(1,2), add=TRUE)
 # Remarque : vous devez specifier un type de symbole.
-# Nous avons bien obtenu nos cercles. Cependant, nous avons supprime la figure precedente.
-# Nous pouvons empecher cela en utilisant le parametre 'add'. Nus ajoutons egalement
-# 1- l'utilisation de 'locator' et 2- la couleurs grâce aux parametres fg (couleur du bord du cercle)
-# et bg (remplissage).
+# Pour ne pas supprimer la figure precedent, il faut utiliser le parametre 'add'.
+
+# Pour illuster les autres symboles de maniere interactif, nous utilisons la
+# fonction 'locator()' et de la la couleur grâce aux parametres fg (couleur du
+# bord du cercle) et bg (remplissage).
 plot(var1,var2)
 symbols(locator(2), circles=c(1,2), add=TRUE, bg=c("#FF000088","#0000FF88") , fg=2)
 
@@ -727,12 +725,13 @@ symbols(locator(1), thermometers=matrix(c(1,6,0.75),1), add=TRUE, bg="white" ,fg
 symbols(locator(1), boxplot=matrix(c(1,6,2,4,0.85),1), add=TRUE, bg=4 ,fg=2)
 
 
+
 ###                                                                          ###
 ###                                                    2.7. Ajout d'un titre ###
 ###                                                                          ###
 
 # Nous avons deja vu precedemment comment definir un titre directement dans la
-# fonction 'plot'. Pour rappel.
+# fonction 'plot'. Pour rappel :
 plot(var1, var2, pch = 15, main = "var2 en fonction de var1")
 
 # Mais, nous pouvons egalement utiliser la fonction 'title' qui aura le meme
@@ -740,7 +739,7 @@ plot(var1, var2, pch = 15, main = "var2 en fonction de var1")
 plot(var1, var2, pch = 15)
 title(main = "var2 en fonction de var1")
 
-# Nous pouvons aussi inserer un sous-titre si besoin est.
+# Nous pouvons aussi inserer un sous-titre au besoin :
 title(sub = "Scatterplot", col.sub = "red", cex.sub = 0.75)
 
 # Remarque : l'argument 'sub' est aussi disponible dans la fonction plot.
@@ -757,8 +756,8 @@ title(sub = "Scatterplot", col.sub = "red", cex.sub = 0.75)
 # a utiliser est la fonction 'text' (quand on vous dit que R est un langage
 # intuitif...).
 
-# Creons un vecteur de 20 lettres
-(nom <- letters[1 : length(var1)])
+# Creons un vecteur de lettres de la taille de la variable 1 :
+(nom <- sample(letters, size=length(var1), replace=TRUE))
 
 # Plutôt que de representer des points, affichons ces lettres aux coordonnees
 # (var1, var2).
@@ -768,15 +767,16 @@ plot(var1, var2, type = "n")
 text(x = var1, y = var2, labels = nom)
 
 # Peut-on ajouter les deux informations sur le meme. A votre avis ?
+par(mfrow = c(1, 1))
 plot(var1, var2, pch = 15)
 text(x = var1, y = var2, labels = nom)
-
 # Probleme majeur : les deux informations se superposent. Heureusement, la
 # fonction 'text' est muni d'un argument permettant de position les etiquettes
 # par rapport aux coordonnees avec l'argument 'pos'.
 # Placons-les a gauche.
 plot(var1, var2, pch = 15)
 text(x = var1, y = var2, labels = nom, pos = 2)
+# Pour memoire : 0 au centre; 1 en bas; 2 a gauche; 3 en haut ; 4 a droite
 
 # Ajoutons du texte en cliquant
 text(locator(2), c("txt1", "txt2"), col = "red")
@@ -802,18 +802,16 @@ mtext(side = 1, line = 3, text = "mtext - line = 3")
 mtext(side = 1, line = 4, text = "mtext - line = 4")
 mtext(side = 1, line = 3, text = "mtext - line = 3", at = 5)
 
-# Vu qu'on ne fournit pas de coordonnees dans cette fonction, la fonction 'locator'
-# ne fonctionnera pas.
-
+# Nous ne donnons pas de coordonnees avec 'mtext()', nous ne profiterons pas de
+# la fonction 'locator'.
 
 
 ###                                                                          ###
 ###                                                 2.9. Ajout d'une legende ###
 ###                                                                          ###
 
-# La fonction 'legend' presente de nombreux arguments. Nous vous laissons les
+# La fonction 'legend()' presente de nombreux arguments. Nous vous laissons les
 # decouvrir par vous-meme. Regardons plutôt quelques exemples d'utilisation.
-
 
 # Un premier exemple.
 var3 <- iris[ , 'Petal.Length']
@@ -835,8 +833,10 @@ legend("bottomright", c("var2", "var3"), pch = 15, col = c("blue", 'red'), bg = 
 # Finalement, avec une legende ecrite horizontalement
 plot(var1, var2, pch = 15, col = "blue", xlim = c(4, 8), ylim = c(1, 7))
 points(var1, var3, pch = 15, col = "red")
-legend("top", legend = c("var2", "var3"), pch = 15, col = c("blue", 'red'), horiz = T, bg = "white")
+legend("top", legend = c("var2", "var3"), pch = 15, col = c("blue", 'red'), horiz = TRUE, bg = "white")
 
+# Il existe aussi l'argument 'ncol' pour obtenir un nmbre donne de colonne sur
+# lesquelles repartir la legende.
 
 # Plus d'exemples avec :
 example(legend)
@@ -863,25 +863,25 @@ plot0(xlim = c(-2, 2), ylim = c(-2, 2), main = "Plot avec axes retravailles")
 # Ajoutons l'axe des x
 axis(side = 1, at = seq(-2, 2, by = 0.5), labels = seq(-2, 2, by = 0.5), pos = 0)
 
-# L'argument 'side' determine quel axe ajouter (voir l'argument du meme nom dans
-# 'mtext'). L'argument 'at' determine les coordonnees de la graduation et 'labels'
+# L'argument 'side' determine quel axe ajouter (cf. l'argument du meme nom dans
+# 'mtext()'). L'argument 'at' determine les coordonnees de la graduation et 'labels'
 # les etiquettes de la graduation. Enfin, 'pos' indique le positionnement de l'axe
 # sur l'axe des y.
 
-# Ajoutons l'axe des y
+# Ajoutons l'axe des y :
 axis(side = 2, at = seq(-2, 2, by = 0.5), labels = seq(-2, 2, by = 0.5), pos = -2, las = 2)
 
-# Par soucis de precision, forcons les etiquettes a avoir une decimale
+# Par soucis de precision, forcons les etiquettes a avoir une decimale :
 par(mfrow = c(1, 2))
 plot0(xlim = c(-2, 2), ylim = c(-2, 2), main = "Plot retravaille")
 axis(side = 1, at = seq(-2, 2, by = 0.5), labels = format(seq(-2, 2, by = 0.5)), pos = -2)
 axis(side = 2, at = seq(-2, 2, by = 0.5), labels = format(seq(-2, 2, by = 0.5)), pos = -2, las = 2)
 
-# Nous pouvons aussi ajouter une graduation intermediaire
-axis(side = 1, at = seq(-1.75, 1.75, by = 0.5), labels = F, pos = -2, tck = 0.02, lwd = 0, lwd.ticks = 1)
-axis(side = 2, at = seq(-1.75, 1.75, by = 0.5), labels = F, pos = -2, tck = -0.01, lwd = -2, lwd.ticks = 1)
+# Nous pouvons aussi ajouter une graduation intermediaire :
+axis(side = 1, at = seq(-1.75, 1.75, by = 0.5), labels = FALSE, pos = -2, tck = 0.02, lwd = 0, lwd.ticks = 1)
+axis(side = 2, at = seq(-1.75, 1.75, by = 0.5), labels = FALSE, pos = -2, tck = -0.01, lwd = -2, lwd.ticks = 1)
 
-# Ajoutons maintenant des noms aux axes
+# Ajoutons maintenant des noms aux axes :
 mtext(side = 1, line = 1.5, text = "Axe des x", font = 2)
 mtext(side = 2, line = 2.5, text = "Axe des y", font = 2, las = 0)
 
@@ -892,7 +892,6 @@ points(x = ptsx, y = ptsy, pch = 15)
 
 # Comparons avec le graphe par defaut
 plot(ptsx, ptsy, main = "Plot par defaut")
-
 
 ## Ajoutons une box
 par(mfrow=c(2,3))
@@ -913,13 +912,12 @@ box(col=1, bty="]", lwd=4)
 ###                                                  2.11. Ajout d'une image ###
 ###                                                                          ###
 
-## IL peut etre fort interessant de pouvoir mettre une image quelconque sur vos
-## graphiques. Sur une carte, cela permet notamment d'inclure des symboles pour y
-## figurer certains elements (e.g. parking, parc naturels...)
+## IL peut etre fort utile de pouvoir mettre une image quelconque sur vos
+## graphiques : photo, logo, symboles speciaux pour une carte, etc.
 ## Nous pouvons egalement inclure un graphique dans un autre, nous en
 ## parlerons lors de la deuxieme seance.
 
-## les lignes ci-dessous sont donnees dans l'exemple de la fonction "rasterImage"
+## Par exemple, en suivant l'exemple de la documentatin de "rasterImage":
 plot(c(100, 250), c(300, 450), type = "n", xlab = "", ylab = "")
 image <- as.raster(matrix(0:1, ncol = 5, nrow = 3))
 rasterImage(image, 150, 325, 250, 400, angle = 15, interpolate = FALSE)
@@ -927,7 +925,6 @@ rasterImage(image, 150, 325, 250, 400, angle = 15, interpolate = FALSE)
 ## Pour donner toute sa pertinence a cette fonction, il est necessaire de presenter
 ## comment il est possible d'ouvrir une image avec R. Vous avez pour cela 2 packages
 ## "jpeg" et "png". Pour installer ces packages, il suffit d'entrer :
-
 install.packages(c("png","jpeg"), repos="http://cran.univ-lyon1.fr/")
 
 ## Pour les charger :
@@ -936,18 +933,21 @@ require("jpeg")
 ## telechargeons une image.
 download.file("http://kevincazelles.fr/material/assets/photo1.jpg", "photo1.jpg")
 
-## Il suffit d'utiliser la fonction 'readPNG' et d'utiliser l'argument 'native' avec la
-## valeur 'TRUE' pour avoir un objet directement utilisable par 'rasterImage'.
+## Il suffit d'utiliser la fonction 'readJPEG()' et d'utiliser l'argument 'native' avec la
+## valeur 'TRUE' pour avoir un objet directement utilisable par 'rasterImage()'.
 sloc <-readJPEG("./photo1.jpg", native=TRUE)
-
+## On ajoute alors l'image avec 'rasterImage()' et pour rendre l'exemple
+## interactif on utilise la focntion 'locator()' de nouveau :
 plot(0:8,0:8, type="n")
 for (i in 0:5){
     ptloc <- locator(1)
     rasterImage(sloc,ptloc$x,ptloc$y,ptloc$x+1,ptloc$y+1.4, angle=i*60)
 }
-## Remarque 1 : si votre image est en jpeg, la fonction est 'readJPEG'
-## Remarque 2 : ces deux formats sont suffisants dans de nombreux cas des lors que vous
-## maîtriser un outil puissant de conversion entre les formats du type Image Magick
+
+## Remarque 1 : si votre image est en .png, la fonction est 'readPNG'
+## Remarque 2 : ces deux formats sont suffisants dans de nombreux cas.
+## Une solution simple est tres efficace de conversion des images est le
+## freeware 'Image Magick'
 ## browseURL("http://www.imagemagick.org/")
 ## Remarque 3 : une petite adresse pour trouver des images utiles pour vos graphiques
 ## browseURL("http://www.flaticon.com/most-downloaded/")
