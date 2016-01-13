@@ -64,7 +64,12 @@
 # couleurs, les tailles de caracteres, etc. Celles-ci sont stockees dans l'objet
 # 'par' (qui est egalement une fonction).
 par()
+# Pour accéder à un paramètre en particulier
 par()$col
+# ou encore
+par("col")
+# et pour plusieurs paramètres
+par("col", "bg")
 
 # Ces parametres possedent des valeurs par defaut afin d’eviter a l'utilisateur
 # de devoir les definir a chaque graphe. Bien entendu, ces valeurs peuvent etre
@@ -94,9 +99,11 @@ plot(x = c(1, 2), y = c(1, 2), type = "l")
 # graphique.
 
 # La fonction 'par' comporte 72 parametres graphiques dont la plupart sont
-# modifiables (precisement 66). Au cours de ce chapitre, nous allons nous
-# interesser aux plus pertinents d'entre eux.
-# Voici la liste des parametres que nous aborderons et de leurs valeurs.
+# modifiables. Plus precisement 66 sont modifiables, on peut les obtenir en entrant:
+par(no.readonly = TRUE)
+
+# Au cours de ce chapitre, nous allons nous interesser aux plus pertinents
+# d'entre eux. Voici la liste des parametres que nous aborderons et de leurs valeurs.
 ### run
 opar <- par()
 param <- data.frame()
@@ -248,10 +255,13 @@ plot(rnorm(50), rnorm(50), pch = "1")
 plot(rnorm(50), rnorm(50), pch = 65)
 plot(rnorm(50), rnorm(50), pch = "A")
 
-# Attention : certains symboles sont caracterises par deux couleurs : le contour
+# Attention:
+# 1. certains symboles sont caracterises par deux couleurs, le contour
 # et le fond. L'argument 'col' controlera la couleur de contour alors que
 # l'argument 'bg' definira la couleur de fond. C'est le cas notamment des 'pch'
 # 21 a 25.
+# 2. Si vous utilisez une chaine de charactere comme pch, seul le premier est 
+# utilise
 
 plot(0, pch = 22)
 plot(0, pch = 22, cex = 3)
