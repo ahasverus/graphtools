@@ -260,7 +260,7 @@ plot(rnorm(50), rnorm(50), pch = "A")
 # et le fond. L'argument 'col' controlera la couleur de contour alors que
 # l'argument 'bg' definira la couleur de fond. C'est le cas notamment des 'pch'
 # 21 a 25.
-# 2. Si vous utilisez une chaine de charactere comme pch, seul le premier est 
+# 2. Si vous utilisez une chaine de charactere comme pch, seul le premier est
 # utilise
 
 plot(0, pch = 22)
@@ -984,3 +984,6 @@ points(x, sample(x), pch = 19, col = "blue")
 # Paul Murrel, membre actif du R Developpement Core Team. Vous pouvez vous
 # procurer gratuitement (legalement?) ce livre :
 browseURL("http://www.google.ca/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCIQFjAA&url=http%3A%2F%2Flux.e-reading-lib.org%2Fbookreader.php%2F137370%2FC486x_APPb.pdf&ei=i3BKVN6kGoqlyQSsjIHwBQ&usg=AFQjCNEc4AUwEG8z2PssMNidoAZrbKL9Dg&sig2=UDw-Um4ELtkYQZjtofV0FQ&bvm=bv.77880786,d.aWw")
+
+# Plus de ressources sur les graphiques
+browseURL(http://kevincazelles.fr/rgraphics/2015/12/04/r-and-graphics.html)
