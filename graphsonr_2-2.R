@@ -64,12 +64,7 @@
 # couleurs, les tailles de caracteres, etc. Celles-ci sont stockees dans l'objet
 # 'par' (qui est egalement une fonction).
 par()
-# Pour accéder à un paramètre en particulier
 par()$col
-# ou encore
-par("col")
-# et pour plusieurs paramètres
-par("col", "bg")
 
 # Ces parametres possedent des valeurs par defaut afin d’eviter a l'utilisateur
 # de devoir les definir a chaque graphe. Bien entendu, ces valeurs peuvent etre
@@ -99,11 +94,9 @@ plot(x = c(1, 2), y = c(1, 2), type = "l")
 # graphique.
 
 # La fonction 'par' comporte 72 parametres graphiques dont la plupart sont
-# modifiables. Plus precisement 66 sont modifiables, on peut les obtenir en entrant:
-par(no.readonly = TRUE)
-
-# Au cours de ce chapitre, nous allons nous interesser aux plus pertinents
-# d'entre eux. Voici la liste des parametres que nous aborderons et de leurs valeurs.
+# modifiables (precisement 66). Au cours de ce chapitre, nous allons nous
+# interesser aux plus pertinents d'entre eux.
+# Voici la liste des parametres que nous aborderons et de leurs valeurs.
 ### run
 opar <- par()
 param <- data.frame()
@@ -255,13 +248,10 @@ plot(rnorm(50), rnorm(50), pch = "1")
 plot(rnorm(50), rnorm(50), pch = 65)
 plot(rnorm(50), rnorm(50), pch = "A")
 
-# Attention:
-# 1. certains symboles sont caracterises par deux couleurs, le contour
+# Attention : certains symboles sont caracterises par deux couleurs : le contour
 # et le fond. L'argument 'col' controlera la couleur de contour alors que
 # l'argument 'bg' definira la couleur de fond. C'est le cas notamment des 'pch'
 # 21 a 25.
-# 2. Si vous utilisez une chaine de charactere comme pch, seul le premier est
-# utilise
 
 plot(0, pch = 22)
 plot(0, pch = 22, cex = 3)
@@ -382,7 +372,7 @@ plot(0, pch = 15)
 # Executons ce code
 
 ### run
-par(mfrow=c(1,1))
+par(mfrow=c(1,1), mgp=c(3,1.6,0))
 plot(0, type = "n", xlim = c(0, 40), ylim = c(0, 40), axes = F, ann = F)
 rect(0, 0, 40, 40, col = "gray", border = "transparent")
 for (i in seq(10, 30, 10)){
@@ -398,23 +388,24 @@ rect(0, 0, 40, 40, border = "darkgray", col = "transparent")
 
 # Nous allons rajouter les axes principaux avec un pas de 10.
 axis(side = 1, at = seq(0, 40, by = 10), labels = seq(0, 40, by = 10),
-    col = "darkgray", col.axis = "darkgray", family = "serif", pos = 0)
-axis(side = 2, at = seq(0, 40, by = 10), labels = seq(0, 40, by = 10),
-    col = "darkgray", col.axis = "darkgray", family = "serif", pos = 0, las = 2)
+    col = "gray10", col.axis = "gray10", family = "serif", pos = 0)
 
 # Maintenant rajoutons une graduation secondaire plus fine et sans etiquette
-axis(side = 1, at = seq(5, 35, by = 5), labels = F, lwd = 0, lwd.ticks = 1,
-    col.ticks = "darkgray", tck = -0.01, pos = 0)
-axis(side = 2, at = seq(5, 35, by = 5), labels = F, lwd = 0, lwd.ticks = 1,
-    col.ticks = "darkgray", tck = -0.01, pos = 0)
+axis(side = 1, at = seq(5, 35, by = 10), labels = F, lwd = 0, lwd.ticks = 1,
+    col.ticks = 2, tck = -0.01, pos = 0)
+par(mgp=c(3,1,0))
+axis(side = 2, at = seq(0, 40, by = 10), labels = seq(0, 40, by = 10),
+    col = "gray10", col.axis = "gray10", family = "serif", pos = 0, las = 2)
+axis(side = 2, at = seq(5, 35, by = 10), labels = F, lwd = 0, lwd.ticks = 1,
+    col.ticks = 2, tck = -0.01, pos = 0)
 
 # En indiquant 'lwd = 0', on evite de retracer les axes, mais le fait de
 # specifier 'lwd.ticks' permettra de tracer quand meme les graduations.
 # Quant a l'argument 'tck', il specifie la longueur des traits de graduation.
 
 # Rajoutons les noms des axes
-mtext(text = "x-axis", side = 1, line = 1.5, family = "serif", font = 2, col = "darkgray")
-mtext(text = "y-axis", side = 2, line = 1.75, family = "serif", font = 2, col = "darkgray", las = 0)
+mtext(text = "x-axis", side = 1, line = 1.5, family = "serif", font = 2, col = "darkgray", cex=1.4)
+mtext(text = "y-axis", side = 2, line = 1.75, family = "serif", font = 2, col = "darkgray", las = 0, cex=1.4)
 
 # Et superposons quelques points.
 x <- sample(1:39, 50, replace = T)
@@ -468,22 +459,7 @@ mtext(side = 3, line = 1.5, text = "mar", family = "mono", col = "blue", font = 
 ### end run
 
 # Exemple 2
-### run
-par(oma = c(2, 2, 2, 2), bg = "gray", mfrow = c(1, 2))
-plot(0, 0, type = "n", xlab = "Axe des x", ylab = "Axe des y", family = "mono")
-box("plot", col = "red", lwd = 2)
-rect(-1, -1, 1, 1, border = NA, col = "red", density = 20, angle = 45)
-box("inner", col = "purple", lwd = 4)
-box("figure", col = "blue", lwd = 1)
-mtext(side = 3, line = 1.75, text = "mar", family = "mono", col = "blue", font = 2)
-plot(0, 0, type = "n", xlab = "Axe des x", ylab = "Axe des y", family = "mono")
-box("plot", col = "red", lwd = 2)
-rect(-1, -1, 1, 1, border = NA, col = "red", density = 20, angle = 45)
-box("figure", col = "blue", lwd = 1)
-mtext(side = 3, line = 1.75, text = "mar", family = "mono", col = "blue", font = 2)
-box("outer", col = "green", lwd = 4)
-mtext(side = 3, line = 0.5, text = "oma", family = "mono", col = "green", font = 2, outer = T)
-### end run
+
 
 # Par defaut, 'oma' est egal a:
 par()$oma
@@ -641,6 +617,9 @@ col2rgb("#CD853F")
 # precedemment, elles ne retournent pas de nom de couleurs, mais du code hexadecimal.
 
 rainbow(24)
+pal <- colorRampPalette(c(1,3))
+
+
 gray(0:9/9)
 
 par(mar = c(0, 0, 0, 0))
@@ -760,7 +739,7 @@ dev.cur()
 dev.prev()
 
 # Admettons que nous souhaitions activer le second peripherique (nomme 3). Nous
-# procederons comme suit.
+# procederons comme suitp.
 dev.set(3)
 
 # Verifions
@@ -834,7 +813,7 @@ dev.off()
 # connexion au peripherique de sortie coupee qu'on pourra voir le resultat en pdf.
 
 # Exportation en PNG.
-png("MyPlot2.png")
+png("./Desktop/MyPlot2.png")
 plot(x, y, pch = 15, main = "My plot 2")
 abline(lm(y ~ x))
 dev.off()
@@ -984,6 +963,3 @@ points(x, sample(x), pch = 19, col = "blue")
 # Paul Murrel, membre actif du R Developpement Core Team. Vous pouvez vous
 # procurer gratuitement (legalement?) ce livre :
 browseURL("http://www.google.ca/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCIQFjAA&url=http%3A%2F%2Flux.e-reading-lib.org%2Fbookreader.php%2F137370%2FC486x_APPb.pdf&ei=i3BKVN6kGoqlyQSsjIHwBQ&usg=AFQjCNEc4AUwEG8z2PssMNidoAZrbKL9Dg&sig2=UDw-Um4ELtkYQZjtofV0FQ&bvm=bv.77880786,d.aWw")
-
-# Plus de ressources sur les graphiques
-browseURL(http://kevincazelles.fr/rgraphics/2015/12/04/r-and-graphics.html)
