@@ -103,7 +103,7 @@ param <- data.frame()
 
 ess <- c("ann", "bg", "bty", "cex", "col", "family", "fg", "font", "las", "lty",
     "lwd", "mar", "mfcol", "mfrow", "mgp", "oma", "pch", "srt", "tck", "xaxt",
-    "yaxt", "xlog", "ylog")
+    "yaxt", "xlog", "ylog","xaxs", "yaxs")
 
 for (i in 1 : length(ess)){
     x         <- grep(ess[i], names(opar))
@@ -340,7 +340,6 @@ par(mfrow = c(2, 2))
 plot(0)
 plot(0, xaxt = "n", yaxt = "n")
 plot(0, axes = FALSE)
-
 # En utilisant l'argument 'ann' (pour annotation), on peut egalement supprimer
 # le nom des axes (ainsi que toutes les autres annotations, comme le titre).
 plot(0, axes = FALSE, ann = FALSE)
@@ -349,8 +348,8 @@ plot(0, axes = FALSE, ann = FALSE)
 # trois valeurs qui vont controler le positionnement du nom des axes, des axes
 # eux-meme et de leur valeurs. Ces positions sont relatives a la delimitation
 # de la region du plot.
-
 par(mfrow = c(2, 2))
+#
 plot(0, pch = 15)
 par(mgp = c(0, 1, 0))
 plot(0, pch = 15)
@@ -360,8 +359,11 @@ par(mgp = c(3, 1, 3))
 plot(0, pch = 15)
 
 # Un ajustement plus serre.
-par(mgp = c(1.5, 0.5, 0))
+par(mfrow=c(1,2), xaxs="r", yaxs="r", mgp = c(1.5, 0.5, 0), ann=FALSE)
 plot(0, pch = 15)
+par(xaxs="i", yaxs="i")
+plot(0, pch = 15)
+
 
 # Regardons les derniers arguments au travers d'un exemple en utilisant la
 # fonction 'axis'. Nous allons reproduire le graphique vu a la section
@@ -445,7 +447,7 @@ axis(side = 4, at = seq(50, 350, by = 100), labels = F, lwd = 0, lwd.ticks = 1,
 
 # Exemple 1
 ### run
-par(oma = c(2, 2, 2, 2), bg = "gray")
+par(oma = c(2, 2, 2, 2), mar=c( 5.1 4.1 4.1 2.1), bg = "gray")
 plot(0, 0, type = "n", xlab = "Axe des x", ylab = "Axe des y", family = "mono")
 box("plot", col = "red", lwd = 2)
 rect(-1, -1, 1, 1, border = NA, col = "red", density = 20, angle = 45)
@@ -486,6 +488,7 @@ par()$mar
 
 # Il vient controler la taille de la region du plot (incluant les axes). Son
 # ajustement est tres important. Regardons un exemple.
+### run
 par(mfrow = c(2, 2))
 plot(0, pch = 15, main = "'mar' par defaut")
 box("figure", col = "blue", lwd = 2)
@@ -502,6 +505,7 @@ par(mar = c(0, 0, 0, 0))
 plot(0, pch = 15, main = "'mar' = c(0, 0, 0, 0)")
 box("figure", col = "blue", lwd = 2)
 box("plot", col = "red", lwd = 2)
+### end run
 
 # Mais, un bon ajustement peut donner un rendu visuel interessant en grossissant
 # au maximum la region du plot.
@@ -600,18 +604,20 @@ plot(0, pch = 15, cex = 6, col = rgb(255, 0, 255, maxColorValue = 255), main = "
 # l’operation pour les deux autres couleurs RGB et voila!
 
 # Exemple avec la couleur Peru (R = 205, G = 133 et B = 63)
+##
 # Modulo du rouge
 205 %/% 16 # 12 donc C
 # Reste du rouge
 205 %% 16 # 13 donc D
-
+##
 133 %/% 16 # 8 donc 8
 133 %% 16 # 5 donc 5
+##
 63 %/% 16 # 3 donc 3
 63 %% 16 # 15 donc F
 
 # Ce qui nous donne : #CD853F
-#Comparons
+# Comparons
 par(mfrow = c(1, 2))
 plot(0, pch = 15, cex = 6, col = rgb(red = 205, green = 133, blue = 63, maxColorValue = 255))
 plot(0, pch = 15, cex = 6, col = "#CD853F")
@@ -956,6 +962,10 @@ rect(range(x)[1], range(x)[1], range(x)[2], range(x)[2], col = "red", border = 0
 points(x, sample(x), pch = 19, col = "blue")
 
 
+## Note
+
+# Il existe aussi la fonction split.screen() pour partitionner une fenêtre,
+# cette dernière étant incompatible avec layout().
 
 
 ######################################################
